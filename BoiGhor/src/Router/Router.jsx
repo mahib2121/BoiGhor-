@@ -5,6 +5,7 @@ import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import HomePage from "../pages/Home/HomePage";
 import Register from "../pages/AuthPage/Register";
 import Login from "../pages/AuthPage/Login";
+import AuthLayout from "../Firebase/AuthLayout";
 
 
 const router = createBrowserRouter([
@@ -33,7 +34,8 @@ const router = createBrowserRouter([
     // AUTH ROUTES
     {
         path: "/",
-        // element: <AuthLayout />,
+        errorElement: <ErrorPage />,
+        element: <AuthLayout />,
         children: [
             {
                 path: "login",
