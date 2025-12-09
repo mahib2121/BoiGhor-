@@ -7,7 +7,7 @@ const NavBar = ({ isLoggedIn, user }) => {
     return (
         <div className="navbar bg-base-100 shadow-sm px-5">
 
-            {/* Brand */}
+
             <div className="flex-1">
                 <Link to="/" className="text-2xl font-semibold">BoiGhor</Link>
             </div>

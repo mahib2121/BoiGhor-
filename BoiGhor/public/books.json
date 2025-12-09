@@ -5,7 +5,7 @@
       "description": "Learn the best strategies to grow your online store in today's competitive market.",
       "category": "business",
       "trending": true,
-      "coverImage": "book-1.png",
+      "coverImage": "banner.png",
       "oldPrice": 29.99,
       "newPrice": 19.99
     },
@@ -15,7 +15,7 @@
       "description": "A curated list of the best fiction books that are trending this year.",
       "category": "books",
       "trending": true,
-      "coverImage": "book-2.png",
+      "coverImage": "banner.png",
       "oldPrice": 24.99,
       "newPrice": 14.99
     },
