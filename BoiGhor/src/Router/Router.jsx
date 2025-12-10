@@ -6,6 +6,7 @@ import HomePage from "../pages/Home/HomePage";
 import Register from "../pages/AuthPage/Register";
 import Login from "../pages/AuthPage/Login";
 import AuthLayout from "../Firebase/AuthLayout";
+import Cartpage from "../pages/CartPage/Cartpage";
 
 
 const router = createBrowserRouter([
@@ -21,8 +22,8 @@ const router = createBrowserRouter([
                     fetch("warehouses.json").then((res) => res.json()),
             },
             {
-                path: "/about",
-                element: <div>sample about</div>,
+                path: "/cart",
+                element: <Cartpage></Cartpage>
             },
             {
                 path: "/books",

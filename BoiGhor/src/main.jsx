@@ -6,11 +6,15 @@ import { RouterProvider } from 'react-router'
 import router from './Router/Router.jsx'
 import AuthProvider from './Firebase/AuthProvider.jsx'
 import { ToastContainer, toast } from 'react-toastify';
+import 'sweetalert2/src/sweetalert2.scss'
+import { Provider } from 'react-redux'
+import store from './redux/store.js'
+
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
+  < Provider store={store}>
     <AuthProvider>
-      <RouterProvider router={router} />,
+      <RouterProvider router={router} />
       <ToastContainer />
     </AuthProvider>
-  </StrictMode>,
+  </ Provider>,
 )
