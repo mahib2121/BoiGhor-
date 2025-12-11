@@ -7,6 +7,10 @@ import Register from "../pages/AuthPage/Register";
 import Login from "../pages/AuthPage/Login";
 import AuthLayout from "../Firebase/AuthLayout";
 import Cartpage from "../pages/CartPage/Cartpage";
+import ChackOut from "../pages/ChekoutPage/ChackOut";
+import Dashbord from "../pages/Dashbord/Dashbord";
+import PrivateRoute from "../Firebase/PrivateRoute";
+import MyOrder from "../pages/Dashbord/MyOrder";
 
 
 const router = createBrowserRouter([
@@ -29,6 +33,11 @@ const router = createBrowserRouter([
                 path: "/books",
                 element: <div>All Books Is here</div>,
             },
+            {
+                path: "/checkout",
+                element: <ChackOut></ChackOut>,
+            },
+
         ],
     },
 
@@ -48,6 +57,19 @@ const router = createBrowserRouter([
             },
         ],
     },
+    {
+        path: "dashboard",
+        element: <PrivateRoute>
+            <Dashbord></Dashbord>
+        </PrivateRoute>,
+        children: [
+            {
+                path: "my-orders",
+                Component: MyOrder,
+            }
+        ]
+
+    }
 ]);
 
 export default router;

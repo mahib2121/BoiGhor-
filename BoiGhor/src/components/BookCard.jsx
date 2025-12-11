@@ -21,7 +21,7 @@ const BookCard = ({ book }) => {
         <div className="max-w-xs bg-white border rounded-xl shadow p-5 hover:shadow-lg transition duration-200">
 
             <img
-                src={`/${coverImage}`}
+                src={coverImage}
                 alt={title}
                 className="w-full h-48 object-cover rounded-md"
             />

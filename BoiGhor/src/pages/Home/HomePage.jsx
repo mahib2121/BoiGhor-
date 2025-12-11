@@ -1,21 +1,3 @@
-// import React from 'react';
-// import Banner from '../../components/Banner';
-// import LateBook from '../../components/LateBook';
-// import Coverage from '../../components/Coverage';
-
-// const HomePage = () => {
-//     return (
-//         <div>
-//             <Banner></Banner>
-//             <LateBook></LateBook>
-//             <Coverage></Coverage>
-//         </div>
-//     );
-// };
-
-// export default HomePage;
-
-
 import React from "react";
 import Banner from "../../components/Banner";
 import LateBook from "../../components/LateBook";
