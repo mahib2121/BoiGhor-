@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-
+import { Link, useNavigate } from "react-router";
 import useAuth from "../../Firebase/useAuth";
 import axiosSecure from "../../hook/axiosSecure";
 
 const MyOrder = () => {
     const { user } = useAuth();
+    const navigate = useNavigate();
     const [orders, setOrders] = useState([]);
 
     // FETCH USER ORDERS
@@ -27,10 +28,9 @@ const MyOrder = () => {
         }
     };
 
-    // PAY NOW (just navigate or open payment gateway)
-    const handlePayNow = (orderId) => {
-        console.log("Redirect to payment for:", orderId);
-        // navigate(`/payment/${orderId}`);
+    // PAY NOW
+    const handlePayNow = (id) => {
+        navigate(`payment/${id}`);
     };
 
     useEffect(() => {
@@ -62,38 +62,36 @@ const MyOrder = () => {
                         <tr key={order._id}>
                             <td>{index + 1}</td>
 
-                            {/* Book Title */}
                             <td>
                                 {order.items.map((i) => (
                                     <p key={i._id}>{i.title}</p>
                                 ))}
                             </td>
 
-                            {/* Order Date */}
                             <td>{new Date(order.createdAt).toLocaleDateString()}</td>
 
-                            {/* Total Amount */}
                             <td>${order.totalAmount}</td>
 
-                            {/* Status */}
                             <td className="capitalize">{order.status}</td>
 
-                            {/* Payment Status */}
                             <td className="capitalize">{order.paymentStatus}</td>
 
                             <td className="space-x-2">
-
-                                {/* SHOW PAY NOW ONLY IF unpaid + pending */}
                                 {order.paymentStatus === "unpaid" && order.status === "pending" && (
-                                    <button
+                                    // <button
+                                    //     className="btn btn-xs btn-success"
+                                    //     onClick={() => handlePayNow(order._id)}
+                                    // >
+                                    //     Pay Now
+                                    // </button>
+                                    <Link to={`/dashboard/payment/${order._id}`}
                                         className="btn btn-xs btn-success"
-                                        onClick={() => handlePayNow(order._id)}
+
                                     >
                                         Pay Now
-                                    </button>
+                                    </Link>
                                 )}
 
-                                {/* SHOW CANCEL ONLY IF pending */}
                                 {order.status === "pending" && (
                                     <button
                                         className="btn btn-xs btn-error"

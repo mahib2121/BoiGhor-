@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, NavLink, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet } from "react-router";
 
 const Dashboard = () => {
     return (
@@ -29,7 +29,7 @@ const Dashboard = () => {
                     <h2 className="text-xl font-semibold">Dashboard</h2>
                 </div>
 
-                {/* PAGE INNER CONTENT */}
+
                 <div className="p-6">
                     <Outlet />
                 </div>

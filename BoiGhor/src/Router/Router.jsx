@@ -11,6 +11,9 @@ import ChackOut from "../pages/ChekoutPage/ChackOut";
 import Dashbord from "../pages/Dashbord/Dashbord";
 import PrivateRoute from "../Firebase/PrivateRoute";
 import MyOrder from "../pages/Dashbord/MyOrder";
+import AllBook from "../pages/AllBooks/AllBook";
+
+import Payment from "../pages/PaymentPages/Payment";
 
 
 const router = createBrowserRouter([
@@ -30,8 +33,8 @@ const router = createBrowserRouter([
                 element: <Cartpage></Cartpage>
             },
             {
-                path: "/books",
-                element: <div>All Books Is here</div>,
+                path: "/all-books",
+                element: <AllBook></AllBook>,
             },
             {
                 path: "/checkout",
@@ -58,14 +61,19 @@ const router = createBrowserRouter([
         ],
     },
     {
-        path: "dashboard",
-        element: <PrivateRoute>
-            <Dashbord></Dashbord>
-        </PrivateRoute>,
+        path: "/dashboard",
+        element:
+            <PrivateRoute>
+                <Dashbord></Dashbord>
+            </PrivateRoute>,
         children: [
             {
                 path: "my-orders",
-                Component: MyOrder,
+                element: <MyOrder></MyOrder>,
+            },
+            {
+                path: "payment/:orderId",
+                element: <Payment></Payment>,
             }
         ]
 

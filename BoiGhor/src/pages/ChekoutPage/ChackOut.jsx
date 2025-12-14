@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { removeAll } from "../../redux/features/cart/cartSlice";

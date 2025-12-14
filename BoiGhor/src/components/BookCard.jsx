@@ -34,9 +34,9 @@ const BookCard = ({ book }) => {
                 <p className="text-xl font-bold text-blue-600">${newPrice}</p>
             </div>
 
-            <button className="btn btn-primary btn-sm w-full mt-4">
+            {/* <button className="btn btn-primary btn-sm w-full mt-4">
                 Buy Now
-            </button>
+            </button> */}
             <button onClick={() => handelAddtocart(book)} className="btn btn-primary btn-sm w-full mt-4">
                 Add to cart
             </button>
