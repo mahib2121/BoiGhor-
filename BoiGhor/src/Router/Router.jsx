@@ -14,6 +14,9 @@ import MyOrder from "../pages/Dashbord/MyOrder";
 import AllBook from "../pages/AllBooks/AllBook";
 
 import Payment from "../pages/PaymentPages/Payment";
+import PaymentSucces from "../pages/PaymentPages/PaymentSucces";
+import MyPayments from "../pages/PaymentPages/myPayment";
+import BookDetail from "../components/BookDetail";
 
 
 const router = createBrowserRouter([
@@ -35,10 +38,20 @@ const router = createBrowserRouter([
             {
                 path: "/all-books",
                 element: <AllBook></AllBook>,
+
             },
             {
                 path: "/checkout",
                 element: <ChackOut></ChackOut>,
+            },
+            {
+                path: "/books/:id",
+                element: (
+                    <PrivateRoute>
+                        <BookDetail></BookDetail>
+                    </PrivateRoute>
+                )
+
             },
 
         ],
@@ -74,7 +87,15 @@ const router = createBrowserRouter([
             {
                 path: "payment/:orderId",
                 element: <Payment></Payment>,
-            }
+            },
+            {
+                path: "payment-success",
+                element: <PaymentSucces></PaymentSucces>,
+            },
+            {
+                path: "my-Payment",
+                element: <MyPayments></MyPayments>,
+            },
         ]
 
     }

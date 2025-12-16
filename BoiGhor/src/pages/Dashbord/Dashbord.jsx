@@ -69,12 +69,12 @@ const Dashboard = () => {
                         {/* Settings */}
                         <li>
                             <NavLink
-                                to="/dashboard/settings"
+                                to="/dashboard/my-Payment"
                                 className={({ isActive }) =>
                                     isActive ? "active font-bold" : ""
                                 }
                             >
-                                <span>Settings</span>
+                                <span>My Payment </span>
                             </NavLink>
                         </li>
 

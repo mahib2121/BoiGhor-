@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router";
-import axiosSecure from "../../hook/axiosSecure";
+// 1. Import the hook only once
+import useAxiosSecure from "../../hook/axiosSecure";
 
 const Payment = () => {
     const { orderId } = useParams();
     const navigate = useNavigate();
+
+    // 2. Initialize the hook to get the axios instance
+    const axiosSecure = useAxiosSecure();
 
     const [order, setOrder] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -16,6 +20,7 @@ const Payment = () => {
         const fetchOrder = async () => {
             try {
                 setLoading(true);
+                // 3. Use 'axiosSecure.get', NOT 'useAxiosSecure.get'
                 const res = await axiosSecure.get(`/orders/${orderId}`);
                 setOrder(res.data);
                 setError(false);
@@ -27,7 +32,7 @@ const Payment = () => {
         };
 
         fetchOrder();
-    }, [orderId]);
+    }, [orderId, axiosSecure]); // Added axiosSecure to dependencies
 
     if (loading) {
         return <div className="text-center mt-20">Loading...</div>;
@@ -50,6 +55,7 @@ const Payment = () => {
                 email: order.email,
             };
 
+            // 4. Use 'axiosSecure.post', NOT 'useAxiosSecure.post'
             const res = await axiosSecure.post(
                 '/payment-checkout-session',
                 PayInfo
@@ -108,7 +114,7 @@ const Payment = () => {
 
             <button
                 className="btn btn-outline w-full mt-3"
-                onClick={() => navigate("dashboard/my-orders")}
+                onClick={() => navigate("/dashboard/my-orders")} // Fixed path slightly
             >
                 Back to Orders
             </button>

@@ -2,10 +2,12 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../redux/features/cart/cartSlice";
 import Swal from "sweetalert2";
+import { Link } from "react-router";
 
 const BookCard = ({ book }) => {
     const { title, description, coverImage, oldPrice, newPrice } = book;
     const dispach = useDispatch()
+
     const handelAddtocart = (product) => {
         dispach(addToCart(product))
         Swal.fire({
@@ -16,6 +18,7 @@ const BookCard = ({ book }) => {
             timer: 1500
         });
     }
+
 
     return (
         <div className="max-w-xs bg-white border rounded-xl shadow p-5 hover:shadow-lg transition duration-200">
@@ -34,12 +37,18 @@ const BookCard = ({ book }) => {
                 <p className="text-xl font-bold text-blue-600">${newPrice}</p>
             </div>
 
-            {/* <button className="btn btn-primary btn-sm w-full mt-4">
-                Buy Now
-            </button> */}
+
+
             <button onClick={() => handelAddtocart(book)} className="btn btn-primary btn-sm w-full mt-4">
                 Add to cart
             </button>
+
+
+            <Link to={`/books/${book._id}`} >
+                <button className="btn btn-primary btn-sm w-full mt-4">
+                    View Deatils
+                </button>
+            </Link>
         </div>
     );
 };
