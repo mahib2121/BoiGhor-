@@ -23,7 +23,7 @@ const useTheme = () => {
         localStorage.setItem("theme", theme);
     }, [theme]);
 
-    // Listen to system theme changes (only when system mode)
+
     useEffect(() => {
         if (theme !== "system") return;
 
