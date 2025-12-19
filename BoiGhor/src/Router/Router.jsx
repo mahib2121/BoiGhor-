@@ -22,6 +22,7 @@ import ManageBooksUpdate from "../pages/Dashbord/ManageBooksUpdate";
 import PaymentCancel from "../components/PaymentCancel";
 import OrderManagement from "../pages/Dashbord/OrderManagement";
 import LibrarianRoute from "./LibrarianRoute";
+import Profile from "../pages/ProfilePage/Profile";
 
 const router = createBrowserRouter([
     {
@@ -41,6 +42,7 @@ const router = createBrowserRouter([
             { path: "cart", element: <Cartpage /> },
             { path: "all-books", element: <AllBook /> },
             { path: "checkout", element: <ChackOut /> },
+            { path: "profile", element: <Profile /> },
 
             {
                 path: "books/:id",
