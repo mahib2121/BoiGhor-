@@ -3,6 +3,7 @@ import Banner from "../../components/Banner";
 import LateBook from "../../components/LateBook";
 import Coverage from "../../components/Coverage";
 import News from "../../components/News";
+import Newsletter from "../../components/NewsLetter";
 
 const HomePage = () => {
     return (
@@ -26,6 +27,9 @@ const HomePage = () => {
                 {/* Coverage Section */}
                 <section className="w-full px-4 md:px-10 pb-12">
                     <Coverage />
+                </section>
+                <section className="w-full px-4 md:px-10 pb-12">
+                    <Newsletter />
                 </section>
             </div>
         </div>
