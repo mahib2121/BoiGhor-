@@ -88,55 +88,44 @@ const Dashboard = () => {
                                 My Payment
                             </NavLink>
                         </li>
-                        {role === "admin" && (
+                        {/* Librarian + Admin */}
+                        {(role === "admin" || role === "librarian") && (
                             <>
-                                <div className="divider">Admin</div>
+                                <div className="divider">Librarian</div>
 
                                 <li>
-                                    <NavLink
-                                        to="/dashboard/UserManagement"
-                                        className={({ isActive }) =>
-                                            isActive ? "active font-bold" : ""
-                                        }
-                                    >
-                                        User Management
+                                    <NavLink to="/dashboard/OrderManagement">
+                                        Order Management
                                     </NavLink>
                                 </li>
 
                                 <li>
-                                    <NavLink
-                                        to="/dashboard/AddBook"
-                                        className={({ isActive }) =>
-                                            isActive ? "active font-bold" : ""
-                                        }
-                                    >
+                                    <NavLink to="/dashboard/AddBook">
                                         Add Book
                                     </NavLink>
                                 </li>
 
                                 <li>
-                                    <NavLink
-                                        to="/dashboard/UpdateBook"
-                                        className={({ isActive }) =>
-                                            isActive ? "active font-bold" : ""
-                                        }
-                                    >
+                                    <NavLink to="/dashboard/UpdateBook">
                                         Manage Book
-                                    </NavLink>
-                                </li>
-
-                                <li>
-                                    <NavLink
-                                        to="/dashboard/OrderManagement"
-                                        className={({ isActive }) =>
-                                            isActive ? "active font-bold" : ""
-                                        }
-                                    >
-                                        Order Management
                                     </NavLink>
                                 </li>
                             </>
                         )}
+
+                        {/* Admin only */}
+                        {role === "admin" && (
+                            <>
+                                <div className="divider">Admin</div>
+
+                                <li>
+                                    <NavLink to="/dashboard/UserManagement">
+                                        User Management
+                                    </NavLink>
+                                </li>
+                            </>
+                        )}
+
                     </ul>
                 </aside>
             </div>

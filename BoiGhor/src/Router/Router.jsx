@@ -21,6 +21,7 @@ import AddBook from "../pages/Dashbord/AddBook";
 import ManageBooksUpdate from "../pages/Dashbord/ManageBooksUpdate";
 import PaymentCancel from "../components/PaymentCancel";
 import OrderManagement from "../pages/Dashbord/OrderManagement";
+import LibrarianRoute from "./LibrarianRoute";
 
 const router = createBrowserRouter([
     {
@@ -85,25 +86,25 @@ const router = createBrowserRouter([
                     {
                         path: "OrderManagement",
                         element: (
-                            <AdminRoute>
+                            <LibrarianRoute >
                                 <OrderManagement />
-                            </AdminRoute>
+                            </LibrarianRoute >
                         ),
                     },
                     {
                         path: "AddBook",
                         element: (
-                            <AdminRoute>
+                            <LibrarianRoute>
                                 <AddBook />
-                            </AdminRoute>
+                            </LibrarianRoute>
                         ),
                     },
                     {
                         path: "UpdateBook",
                         element: (
-                            <AdminRoute>
+                            <LibrarianRoute>
                                 <ManageBooksUpdate />
-                            </AdminRoute>
+                            </LibrarianRoute>
                         ),
                     },
                 ],
