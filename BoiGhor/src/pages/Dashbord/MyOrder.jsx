@@ -25,9 +25,8 @@ const MyOrder = () => {
     // CANCEL ORDER
     const handleCancel = async (id) => {
         try {
-            // 3. Update here as well
-            await axiosSecure.put(`/orders/${id}/cancel`);
-            fetchOrders(); // refresh list
+            await axiosSecure.patch(`/orders/${id}/cancel`);
+            fetchOrders();
         } catch (err) {
             console.log("Cancel error:", err);
         }

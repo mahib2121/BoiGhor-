@@ -10,11 +10,20 @@ import 'sweetalert2/src/sweetalert2.scss'
 import { Provider } from 'react-redux'
 import store from './redux/store.js'
 
+
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+
+
+const queryClient = new QueryClient()
+
 createRoot(document.getElementById('root')).render(
-  < Provider store={store}>
-    <AuthProvider>
-      <RouterProvider router={router} />
-      <ToastContainer />
-    </AuthProvider>
-  </ Provider>,
+  <Provider store={store}>
+
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <RouterProvider router={router} />
+        <ToastContainer />
+      </AuthProvider>
+    </QueryClientProvider>
+  </Provider>,
 )

@@ -1,14 +1,29 @@
 import React from "react";
-import { Link, NavLink, Outlet } from "react-router";
+import { NavLink, Outlet } from "react-router";
+import useRole from "../../hook/useRole";
 
 const Dashboard = () => {
+    const [role, roleLoading] = useRole();
+
+    // Handle role loading
+    if (roleLoading) {
+        return (
+            <div className="flex justify-center items-center min-h-screen">
+                <span className="loading loading-spinner loading-lg"></span>
+            </div>
+        );
+    }
+
     return (
         <div className="drawer lg:drawer-open">
-            <input id="dashboard-drawer" type="checkbox" className="drawer-toggle" />
+            <input
+                id="dashboard-drawer"
+                type="checkbox"
+                className="drawer-toggle"
+            />
 
             {/* PAGE CONTENT */}
             <div className="drawer-content flex flex-col">
-
                 {/* Navbar */}
                 <div className="w-full navbar bg-base-300 px-4">
                     <label
@@ -29,7 +44,7 @@ const Dashboard = () => {
                     <h2 className="text-xl font-semibold">Dashboard</h2>
                 </div>
 
-
+                {/* Dynamic page */}
                 <div className="p-6">
                     <Outlet />
                 </div>
@@ -37,12 +52,15 @@ const Dashboard = () => {
 
             {/* SIDEBAR */}
             <div className="drawer-side">
-                <label htmlFor="dashboard-drawer" className="drawer-overlay"></label>
+                <label
+                    htmlFor="dashboard-drawer"
+                    className="drawer-overlay"
+                ></label>
 
                 <aside className="bg-base-200 w-64 min-h-full p-4">
                     <ul className="menu text-base-content">
 
-                        {/* Home */}
+                        {/* Common */}
                         <li>
                             <NavLink
                                 to="/"
@@ -50,11 +68,10 @@ const Dashboard = () => {
                                     isActive ? "active font-bold" : ""
                                 }
                             >
-                                <span>Home</span>
+                                Home
                             </NavLink>
                         </li>
 
-                        {/* My Orders */}
                         <li>
                             <NavLink
                                 to="/dashboard/my-orders"
@@ -62,26 +79,74 @@ const Dashboard = () => {
                                     isActive ? "active font-bold" : ""
                                 }
                             >
-                                <span>My Orders</span>
+                                My Orders
                             </NavLink>
                         </li>
 
-                        {/* Settings */}
                         <li>
                             <NavLink
-                                to="/dashboard/my-Payment"
+                                to="/dashboard/my-payment"
                                 className={({ isActive }) =>
                                     isActive ? "active font-bold" : ""
                                 }
                             >
-                                <span>My Payment </span>
+                                My Payment
                             </NavLink>
                         </li>
 
+                        {/* Admin only */}
+                        {role === "admin" && (
+                            <>
+                                <div className="divider">Admin</div>
+
+                                <li>
+                                    <NavLink
+                                        to="/dashboard/UserManagement"
+                                        className={({ isActive }) =>
+                                            isActive ? "active font-bold" : ""
+                                        }
+                                    >
+                                        User Management
+                                    </NavLink>
+                                </li>
+
+                                <li>
+                                    <NavLink
+                                        to="/dashboard/AddBook"
+                                        className={({ isActive }) =>
+                                            isActive ? "active font-bold" : ""
+                                        }
+                                    >
+                                        Add Book
+                                    </NavLink>
+                                </li>
+
+                                <li>
+                                    <NavLink
+                                        to="/dashboard/UpdateBook"
+                                        className={({ isActive }) =>
+                                            isActive ? "active font-bold" : ""
+                                        }
+                                    >
+                                        Manage Book
+                                    </NavLink>
+                                </li>
+
+                                <li>
+                                    <NavLink
+                                        to="/dashboard/OrderManagement"
+                                        className={({ isActive }) =>
+                                            isActive ? "active font-bold" : ""
+                                        }
+                                    >
+                                        Order Management
+                                    </NavLink>
+                                </li>
+                            </>
+                        )}
                     </ul>
                 </aside>
             </div>
-
         </div>
     );
 };

@@ -1,179 +1,110 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import SocialLogin from "./SocialLogin";
 import axios from "axios";
 import useAuth from "../../Firebase/useAuth";
+import SocialLogin from "./SocialLogin";
 
 const Register = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const { registerUser, updateUserProfile } = useAuth();
-    const location = useLocation()
-    const nevigator = useNavigate()
+    const navigate = useNavigate();
+    const location = useLocation();
 
-    const getData = async (data) => {
-        const profileIMG = data.photo[0];
+    const onSubmit = async (data) => {
         try {
+            // 1. Firebase register
             const result = await registerUser(data.email, data.password);
-            console.log(result.user);
-            const formData = new FormData()
-            formData.append('image', profileIMG)
 
-            axios.post(`https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_PhotoAPI}`, formData).then(res => {
-                console.log(res.data.data.url);
-                const userProfile = {
-                    dispayname: data.name,
-                    photoURL: res.data.data.url
+            // 2. Upload image
+            const formData = new FormData();
+            formData.append("image", data.photo[0]);
 
+            const imgRes = await axios.post(
+                `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_PhotoAPI}`,
+                formData
+            );
+
+            const photoURL = imgRes.data.data.url;
+
+            // 3. Update Firebase profile
+            await updateUserProfile({
+                displayName: data.name,
+                photoURL
+            });
+
+            // 4. Get Firebase token
+            const token = await result.user.getIdToken();
+
+            // 5. Save user in DB
+            await axios.post(
+                "http://localhost:3000/users",
+                {
+                    email: data.email,
+                    displayName: data.name,
+                    photoURL
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
                 }
-                updateUserProfile(userProfile).then(() => {
-                    console.log('profile updated done  ');
-                    nevigator(location.state || '/')
-                })
+            );
 
-            })
+            navigate(location.state || "/");
         } catch (error) {
-            console.log(error);
+            console.error(error);
         }
     };
 
     return (
-        <div className="flex justify-center items-center min-h-screen px-4">
-            <form onSubmit={handleSubmit(getData)} className="w-full max-w-sm">
-                <div className="card bg-base-100 border border-base-200 shadow-xl rounded-xl p-6">
+        <div className="flex justify-center items-center min-h-screen">
+            <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-sm">
+                <div className="card p-6 shadow-xl">
 
-                    <h2 className="text-2xl font-semibold text-center mb-6">
+                    <h2 className="text-2xl font-semibold text-center mb-4">
                         Create Account
                     </h2>
-                    <fieldset className="space-y-4">
 
-                        {/* Name */}
-                        <div>
-                            <label className="label-text font-medium mb-1 block">
-                                Name
-                            </label>
+                    <input
+                        placeholder="Name"
+                        {...register("name", { required: true })}
+                        className="input input-bordered w-full mb-3"
+                    />
 
-                            <input
-                                type="text"
-                                {...register("name", {
-                                    required: "Name is required",
-                                    minLength: {
-                                        value: 2,
-                                        message: "Name must be at least 2 characters",
-                                    },
-                                })}
-                                className="input input-bordered w-full rounded-lg"
-                                placeholder="Enter your name"
-                            />
+                    <input
+                        placeholder="Email"
+                        {...register("email", { required: true })}
+                        className="input input-bordered w-full mb-3"
+                    />
 
-                            {errors.name && (
-                                <p className="text-red-500 text-sm mt-1">
-                                    {errors.name.message}
-                                </p>
-                            )}
-                        </div>
+                    <input
+                        type="password"
+                        placeholder="Password"
+                        {...register("password", { required: true, minLength: 6 })}
+                        className="input input-bordered w-full mb-3"
+                    />
 
-                        {/* Email */}
-                        <div>
-                            <label className="label-text font-medium mb-1 block">
-                                Email
-                            </label>
+                    <input
+                        type="file"
+                        {...register("photo", { required: true })}
+                        className="file-input file-input-bordered w-full mb-4"
+                    />
 
-                            <input
-                                type="email"
-                                {...register("email", {
-                                    required: "Email is required",
-                                    pattern: {
-                                        value: /^\S+@\S+$/i,
-                                        message: "Enter a valid email",
-                                    },
-                                })}
-                                className="input input-bordered w-full rounded-lg"
-                                placeholder="Enter your email"
-                            />
-
-                            {errors.email && (
-                                <p className="text-red-500 text-sm mt-1">
-                                    {errors.email.message}
-                                </p>
-                            )}
-                        </div>
-
-
-
-                        {/* Password */}
-                        <div>
-                            <label className="label-text font-medium mb-1 block">
-                                Password
-                            </label>
-
-                            <input
-                                type="password"
-                                {...register("password", {
-                                    required: "Password is required",
-                                    minLength: {
-                                        value: 3,
-                                        message: "Password must be at least 3 characters",
-                                    },
-                                })}
-                                className="input input-bordered w-full rounded-lg"
-                                placeholder="Enter password"
-                            />
-
-                            {errors.password && (
-                                <p className="text-red-500 text-sm mt-1">
-                                    {errors.password.message}
-                                </p>
-                            )}
-                        </div>
-                        {/* Photo Upload */}
-                        <div>
-                            <label className="label-text font-medium mb-1 block">
-                                Profile Photo
-                            </label>
-
-                            <input
-                                type="file"
-                                accept="image/*"
-                                {...register("photo", {
-                                    required: "Photo is required",
-                                })}
-                                className="file-input file-input-bordered w-full rounded-lg"
-                            />
-
-                            {errors.photo && (
-                                <p className="text-red-500 text-sm mt-1">
-                                    {errors.photo.message}
-                                </p>
-                            )}
-                        </div>
-
-
-
-                        {/* Forgot Password */}
-                        <div className="flex justify-end">
-                            <button type="button" className="link link-primary text-sm">
-                                Forgot password?
-                            </button>
-                        </div>
-
-                        {/* Register Button */}
-                        <button className="btn btn-neutral w-full mt-2 rounded-lg">
-                            Register
-                        </button>
-
-                        {/* Login Link */}
-                        <p className="text-sm text-center mt-3">
-                            Already have an account?{" "}
-                            <Link to="/login" state={location.state} className="link link-primary">
-                                Login Now
-                            </Link>
-
-                        </p>
+                    <button className="btn btn-neutral w-full">
+                        Register
+                    </button>
+                    <button>
                         <SocialLogin></SocialLogin>
-                    </fieldset>
+                    </button>
 
+
+                    <p className="text-center mt-3 text-sm">
+                        Already have an account?
+                        <Link to="/login" className="link link-primary ml-1">
+                            Login
+                        </Link>
+                    </p>
                 </div>
             </form>
         </div>
