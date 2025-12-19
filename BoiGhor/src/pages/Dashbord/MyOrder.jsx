@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router"; // or 'react-router-dom'
+import { Link, useNavigate } from "react-router";
 import useAuth from "../../Firebase/useAuth";
 import useAxiosSecure from "../../hook/axiosSecure";
 
@@ -8,21 +8,18 @@ const MyOrder = () => {
     const navigate = useNavigate();
     const [orders, setOrders] = useState([]);
 
-    // 1. Initialize the hook here to get the instance
+
     const axiosSecure = useAxiosSecure();
 
-    // FETCH USER ORDERS
+
     const fetchOrders = async () => {
         try {
-            // 2. Use the instance 'axiosSecure', NOT the hook 'useAxiosSecure'
             const res = await axiosSecure.get(`/orders?email=${user.email}`);
             setOrders(res.data);
         } catch (err) {
             console.log("Error fetching orders:", err);
         }
     };
-
-    // CANCEL ORDER
     const handleCancel = async (id) => {
         try {
             await axiosSecure.patch(`/orders/${id}/cancel`);
@@ -31,8 +28,6 @@ const MyOrder = () => {
             console.log("Cancel error:", err);
         }
     };
-
-    // PAY NOW
     const handlePayNow = (id) => {
         navigate(`payment/${id}`);
     };
@@ -41,7 +36,7 @@ const MyOrder = () => {
         if (user?.email) {
             fetchOrders();
         }
-    }, [user, axiosSecure]); // Added axiosSecure to dependencies (good practice)
+    }, [user, axiosSecure]);
 
     return (
         <div className="overflow-x-auto bg-white p-6 rounded-xl shadow-md">

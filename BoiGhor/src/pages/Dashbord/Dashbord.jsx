@@ -4,8 +4,6 @@ import useRole from "../../hook/useRole";
 
 const Dashboard = () => {
     const [role, roleLoading] = useRole();
-
-    // Handle role loading
     if (roleLoading) {
         return (
             <div className="flex justify-center items-center min-h-screen">
@@ -22,9 +20,9 @@ const Dashboard = () => {
                 className="drawer-toggle"
             />
 
-            {/* PAGE CONTENT */}
+
             <div className="drawer-content flex flex-col">
-                {/* Navbar */}
+
                 <div className="w-full navbar bg-base-300 px-4">
                     <label
                         htmlFor="dashboard-drawer"
@@ -44,13 +42,12 @@ const Dashboard = () => {
                     <h2 className="text-xl font-semibold">Dashboard</h2>
                 </div>
 
-                {/* Dynamic page */}
+
                 <div className="p-6">
                     <Outlet />
                 </div>
             </div>
 
-            {/* SIDEBAR */}
             <div className="drawer-side">
                 <label
                     htmlFor="dashboard-drawer"
@@ -59,8 +56,6 @@ const Dashboard = () => {
 
                 <aside className="bg-base-200 w-64 min-h-full p-4">
                     <ul className="menu text-base-content">
-
-                        {/* Common */}
                         <li>
                             <NavLink
                                 to="/"
@@ -93,8 +88,6 @@ const Dashboard = () => {
                                 My Payment
                             </NavLink>
                         </li>
-
-                        {/* Admin only */}
                         {role === "admin" && (
                             <>
                                 <div className="divider">Admin</div>

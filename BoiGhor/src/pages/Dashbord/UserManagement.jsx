@@ -1,13 +1,11 @@
 import React from 'react';
 import useAxiosSecure from '../../hook/axiosSecure';
 import { useQuery } from '@tanstack/react-query';
-import Swal from 'sweetalert2'; // Assuming you have installed sweetalert2
-import { FaTrashAlt, FaUsers } from 'react-icons/fa'; // Assuming react-icons is installed
+import Swal from 'sweetalert2';
+import { FaTrashAlt, FaUsers } from 'react-icons/fa';
 
 const UserManagement = () => {
     const axiosSecure = useAxiosSecure();
-
-    // 1. Destructure refetch and isLoading from useQuery
     const { data: users = [], refetch, isLoading } = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
@@ -15,13 +13,11 @@ const UserManagement = () => {
             return res.data;
         }
     });
-
-    // 2. Handle Make Admin (Update Operation)
     const handleMakeAdmin = (user) => {
         axiosSecure.patch(`/users/admin/${user._id}`)
             .then(res => {
                 if (res.data.modifiedCount > 0) {
-                    refetch(); // Update the UI immediately
+                    refetch();
                     Swal.fire({
                         position: "top-end",
                         icon: "success",
@@ -34,8 +30,6 @@ const UserManagement = () => {
             })
             .catch(error => console.error(error));
     };
-
-    // 3. Handle Delete User (Delete Operation)
     const handleDeleteUser = (user) => {
         Swal.fire({
             title: "Are you sure?",
@@ -50,7 +44,7 @@ const UserManagement = () => {
                 axiosSecure.delete(`/users/${user._id}`)
                     .then(res => {
                         if (res.data.deletedCount > 0) {
-                            refetch(); // Update the UI immediately
+                            refetch();
                             Swal.fire("Deleted!", "User has been deleted.", "success");
                         }
                     })
@@ -67,11 +61,8 @@ const UserManagement = () => {
                 <h2 className="text-3xl">All Users</h2>
                 <h2 className="text-3xl">Total Users: {users.length}</h2>
             </div>
-
-            {/* 4. The Table UI */}
             <div className="overflow-x-auto">
                 <table className="table table-zebra w-full">
-                    {/* head */}
                     <thead>
                         <tr>
                             <th>#</th>

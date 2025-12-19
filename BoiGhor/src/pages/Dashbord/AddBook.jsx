@@ -41,8 +41,6 @@ const AddBook = () => {
             <h2 className="text-2xl font-bold mb-4">Add New Book</h2>
 
             <form onSubmit={handleAddBook} className="grid gap-4">
-
-                {/* Title */}
                 <input
                     type="text"
                     name="title"
@@ -50,16 +48,12 @@ const AddBook = () => {
                     className="input input-bordered w-full"
                     required
                 />
-
-                {/* Description */}
                 <textarea
                     name="description"
                     placeholder="Book Description"
                     className="textarea textarea-bordered h-24"
                     required
                 />
-
-                {/* Category */}
                 <select
                     name="category"
                     className="select select-bordered w-full"
@@ -72,7 +66,7 @@ const AddBook = () => {
                     <option value="science">Science</option>
                 </select>
 
-                {/* Cover Image */}
+
                 <input
                     type="text"
                     name="coverImage"
@@ -81,7 +75,7 @@ const AddBook = () => {
                     required
                 />
 
-                {/* Prices */}
+
                 <div className="flex gap-4">
                     <input
                         type="number"
@@ -101,7 +95,7 @@ const AddBook = () => {
                     />
                 </div>
 
-                {/* Trending */}
+
                 <label className="flex items-center gap-2">
                     <input
                         type="checkbox"
