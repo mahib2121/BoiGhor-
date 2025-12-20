@@ -205,7 +205,7 @@ const NavBar = () => {
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link to="/settings" className="flex items-center gap-2">
+                                        <Link to="/" className="flex items-center gap-2">
                                             <Settings className="h-4 w-4" /> Settings
                                         </Link>
                                     </li>

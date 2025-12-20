@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { useDispatch } from 'react-redux';
+import { ShoppingCart, ArrowLeft, Share2, Heart, Star, BookOpen } from 'lucide-react';
 import { addToCart } from '../redux/features/cart/cartSlice';
 
 const BookDetail = () => {
@@ -12,6 +13,7 @@ const BookDetail = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        window.scrollTo(0, 0); // Ensure page starts at top
         const fetchBookData = async () => {
             try {
                 const response = await axios.get(`http://localhost:3000/books/${id}`);
@@ -30,74 +32,138 @@ const BookDetail = () => {
 
     const handleAddToCart = (product) => {
         dispatch(addToCart(product));
-
         Swal.fire({
             position: "center",
             icon: "success",
-            title: "Added to Cart Successfully",
+            title: "Added to Cart!",
+            text: `${product.title} has been added to your shopping bag.`,
             showConfirmButton: false,
-            timer: 1500
+            timer: 1500,
+            background: '#fff',
+            customClass: { popup: 'rounded-xl' }
         });
     };
 
-    if (loading) return <div className="text-center p-10">Loading...</div>;
-    if (!book) return <div className="text-center p-10">Book not found.</div>;
+    if (loading) return (
+        <div className="min-h-screen flex items-center justify-center bg-base-100">
+            <span className="loading loading-spinner loading-lg text-primary"></span>
+        </div>
+    );
+
+    if (!book) return (
+        <div className="min-h-screen flex flex-col items-center justify-center bg-base-100 gap-4">
+            <h2 className="text-2xl font-bold">Book not found</h2>
+            <Link to="/all-books" className="btn btn-primary">Back to Store</Link>
+        </div>
+    );
+
     const { title, description, category, trending, coverImage, oldPrice, newPrice } = book;
 
-    return (
-        <div className="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-xl mt-10">
-            <div className="flex flex-col md:flex-row gap-8">
+    // Calculate discount
+    const discount = oldPrice ? Math.round(((oldPrice - newPrice) / oldPrice) * 100) : 0;
 
-                <div className="w-full md:w-1/3 flex justify-center items-start relative">
-                    <img
-                        src={coverImage}
-                        alt={title}
-                        className="rounded-lg shadow-md w-full object-cover max-h-[400px]"
-                    />
-                    {trending && (
-                        <span className="absolute top-2 left-2 bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full">
-                            Trending
-                        </span>
-                    )}
+    return (
+        <div className="min-h-screen bg-base-200/30 py-10">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+
+                {/* --- Breadcrumb Navigation --- */}
+                <div className="text-sm breadcrumbs mb-6 text-base-content/70">
+                    <ul>
+                        <li><Link to="/">Home</Link></li>
+                        <li><Link to="/all-books">Books</Link></li>
+                        <li className="font-semibold text-primary overflow-hidden text-ellipsis whitespace-nowrap max-w-[200px]">{title}</li>
+                    </ul>
                 </div>
 
-                <div className="w-full md:w-2/3 flex flex-col justify-between">
-                    <div>
-                        <span className="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full uppercase tracking-wide">
-                            {category}
-                        </span>
+                {/* --- Main Content Card --- */}
+                <div className="card lg:card-side bg-base-100 shadow-xl overflow-hidden">
 
-                        <h1 className="text-3xl font-bold text-gray-900 mt-4 mb-2">
+                    {/* Left: Image Section */}
+                    <figure className="relative lg:w-1/3 bg-base-200/50 p-8 flex justify-center items-center">
+                        <div className="relative shadow-2xl rounded-lg overflow-hidden max-w-sm w-full transform hover:scale-[1.02] transition-transform duration-300">
+                            <img
+                                src={coverImage}
+                                alt={title}
+                                className="w-full h-auto object-cover"
+                            />
+                        </div>
+
+                        {/* Trending Badge */}
+                        {trending && (
+                            <div className="absolute top-6 left-6 badge badge-secondary badge-lg shadow-lg gap-2">
+                                <Star size={14} fill="currentColor" /> Trending
+                            </div>
+                        )}
+                    </figure>
+
+                    {/* Right: Details Section */}
+                    <div className="card-body lg:w-2/3 p-6 md:p-10">
+
+                        {/* Category & Actions */}
+                        <div className="flex justify-between items-start">
+                            <span className="badge badge-outline badge-primary font-medium px-4 py-3 uppercase tracking-wider">
+                                {category}
+                            </span>
+                            <div className="flex gap-2">
+                                <button className="btn btn-circle btn-ghost btn-sm hover:text-red-500 tooltip tooltip-bottom" data-tip="Add to Wishlist">
+                                    <Heart size={20} />
+                                </button>
+                                <button className="btn btn-circle btn-ghost btn-sm hover:text-blue-500 tooltip tooltip-bottom" data-tip="Share">
+                                    <Share2 size={20} />
+                                </button>
+                            </div>
+                        </div>
+
+                        {/* Title & Description */}
+                        <h1 className="text-3xl md:text-4xl font-bold mt-4 mb-2 text-base-content leading-tight">
                             {title}
                         </h1>
 
-                        <p className="text-gray-600 text-lg leading-relaxed mb-6">
+                        {/* Mock Rating */}
+                        <div className="flex items-center gap-2 mb-6">
+                            <div className="rating rating-sm">
+                                <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
+                                <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
+                                <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
+                                <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" checked readOnly />
+                                <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
+                            </div>
+                            <span className="text-sm text-base-content/60">(128 reviews)</span>
+                        </div>
+
+                        <p className="text-base-content/70 text-lg leading-relaxed mb-8 border-b border-base-200 pb-8">
                             {description}
                         </p>
 
-                        <div className="flex items-center gap-4 mb-6">
-                            <span className="text-3xl font-bold text-gray-900">
-                                ${newPrice}
-                            </span>
-                            <span className="text-xl text-gray-400 line-through">
-                                ${oldPrice}
-                            </span>
-                            <span className="text-green-600 text-sm font-semibold">
-                                {Math.round(((oldPrice - newPrice) / oldPrice) * 100)}% OFF
-                            </span>
-                        </div>
-                    </div>
+                        {/* Price & Cart Actions */}
+                        <div className="flex flex-col sm:flex-row gap-6 items-end sm:items-center justify-between mt-auto">
 
-                    <div className="flex gap-4 mt-4">
-                        {/* <button className="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300">
-                            Buy Now
-                        </button> */}
-                        <button
-                            onClick={() => handleAddToCart(book)}
-                            className="flex-1 border-2 border-gray-300 hover:border-gray-400 text-gray-700 font-bold py-3 px-6 rounded-lg transition duration-300"
-                        >
-                            Add to Cart
-                        </button>
+                            <div className="flex items-end gap-3">
+                                <span className="text-4xl font-bold text-primary">${newPrice}</span>
+                                {oldPrice > newPrice && (
+                                    <>
+                                        <span className="text-xl text-base-content/40 line-through mb-1">${oldPrice}</span>
+                                        <span className="badge badge-success text-white font-bold mb-2">
+                                            {discount}% OFF
+                                        </span>
+                                    </>
+                                )}
+                            </div>
+
+                            <div className="flex gap-4 w-full sm:w-auto">
+                                <Link to="/all-books" className="btn btn-outline border-base-300 w-1/3 sm:w-auto">
+                                    <ArrowLeft size={20} />
+                                    <span className="hidden sm:inline">Back</span>
+                                </Link>
+                                <button
+                                    onClick={() => handleAddToCart(book)}
+                                    className="btn btn-primary flex-1 sm:w-auto px-8 shadow-lg hover:shadow-primary/50 transition-all"
+                                >
+                                    <ShoppingCart size={20} />
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
