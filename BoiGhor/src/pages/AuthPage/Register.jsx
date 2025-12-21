@@ -50,7 +50,7 @@ const Register = () => {
             };
 
             const res = await axios.post(
-                "http://localhost:3000/users",
+                "https://boi-ghor-kappa.vercel.app/users",
                 userInfo,
                 {
                     headers: {

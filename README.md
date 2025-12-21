@@ -6,7 +6,7 @@ BoiGhor is a full-stack MERN-based online bookstore where users can browse, orde
 
 ## 🚀 Live Demo
 
-> _Add your live site URL here_
+> https://nimble-flan-bf9163.netlify.app/
 
 ---
 
@@ -20,7 +20,7 @@ BoiGhor is a full-stack MERN-based online bookstore where users can browse, orde
 - DaisyUI
 - Axios
 - Firebase Authentication
-- SweetAlert2
+- SweetAlert2,Framar Motion
 
 ### Backend
 
@@ -110,6 +110,6 @@ boighor/
 git clone https://github.com/mahib2121/BoiGhor-.git
 cd boighor
 
-
+Server Side Code : >https://github.com/mahib2121/BoiGhor-Server
 
 ```

@@ -12,17 +12,16 @@ const Profile = () => {
     const [loading, setLoading] = useState(true);
     const [submitting, setSubmitting] = useState(false);
 
-    // Fetch Profile Data
+
     useEffect(() => {
         const fetchProfile = async () => {
             try {
-                // If backend needs email query, update URL accordingly. 
-                // Assuming /users/profile uses the verified token to identify the user.
+
                 const res = await axiosSecure.get(`/users/profile?email=${user?.email}`);
                 setProfile(res.data);
             } catch (err) {
                 console.error("Profile fetch error:", err);
-                // Fallback to Firebase user data if backend fetch fails
+
                 setProfile({
                     displayName: user?.displayName,
                     email: user?.email,
@@ -47,10 +46,10 @@ const Profile = () => {
         const photoURL = form.photoURL.value;
 
         try {
-            // 1. Update Firebase Auth Profile
+
             await updateUserProfile(displayName, photoURL);
 
-            // 2. Update MongoDB Database
+
             const res = await axiosSecure.patch("/users/profile", {
                 displayName,
                 photoURL
@@ -64,8 +63,6 @@ const Profile = () => {
                     showConfirmButton: false,
                     timer: 1500
                 });
-
-                // Update local state to show changes immediately
                 setProfile(prev => ({ ...prev, displayName, photoURL }));
             }
         } catch (err) {

@@ -56,7 +56,7 @@
 //         };
 
 //         try {
-//             const res = await axios.post("http://localhost:3000/orders", orderData);
+//             const res = await axios.post("https://boi-ghor-kappa.vercel.app/orders", orderData);
 
 //             if (res.data.insertedId || res.data.acknowledged) {
 //                 dispatch(removeAll());
@@ -318,7 +318,7 @@ const Checkout = () => {
         };
 
         try {
-            const res = await axios.post("http://localhost:3000/orders", orderData);
+            const res = await axios.post("https://boi-ghor-kappa.vercel.app/orders", orderData);
 
             if (res.data.insertedId || res.data.acknowledged) {
                 dispatch(removeAll());

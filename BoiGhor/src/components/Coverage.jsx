@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLoaderData } from "react-router";
+import { useLoaderData } from "react-router-dom";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import { motion } from "framer-motion";
 import { MapPin, Search, Navigation } from "lucide-react";

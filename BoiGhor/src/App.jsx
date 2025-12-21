@@ -1,21 +1,18 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import { Outlet } from 'react-router'
-import NavBar from './components/NavBar'
-import Footer from './components/Footer'
+import { Outlet } from "react-router-dom";
+import NavBar from "./components/NavBar";
+import Footer from "./components/Footer";
+import "./App.css";
 
 function App() {
   return (
     <>
-      <NavBar></NavBar>
-      <main className='min-h-screen mx-auto'>
-        <Outlet></Outlet>
+      <NavBar />
+      <main className="min-h-screen mx-auto">
+        <Outlet />
       </main>
-      <Footer></Footer>
+      <Footer />
     </>
-  )
+  );
 }
 
-export default App
+export default App;

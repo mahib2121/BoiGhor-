@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom"; // Assumes you are using react-router-dom
+import { useSearchParams } from "react-router-dom";
 
-// 1. Import the hook
+
 import useAxiosSecure from "../../hook/axiosSecure";
 
 const PaymentSuccess = () => {

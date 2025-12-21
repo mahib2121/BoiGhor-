@@ -78,7 +78,7 @@ const Dashboard = () => {
 
                     {/* Sidebar Brand/Logo */}
                     <div className="h-16 flex items-center px-6 border-b border-base-200">
-                        <Link to="/" className="flex items-center gap-2 font-bold text-2xl text-primary">
+                        <Link to="https://nimble-flan-bf9163.netlify.app" className="flex items-center gap-2 font-bold text-2xl text-primary">
                             <BookOpen className="text-primary" />
                             <span>BoiGhor</span>
                         </Link>

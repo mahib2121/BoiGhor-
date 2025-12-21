@@ -9,8 +9,8 @@ const AllBook = () => {
     const [searchTerm, setSearchTerm] = useState("");
 
     useEffect(() => {
-        window.scrollTo(0, 0); // Scroll to top when page opens
-        fetch("http://localhost:3000/books")
+        window.scrollTo(0, 0);
+        fetch("https://boi-ghor-kappa.vercel.app/books")
             .then(res => res.json())
             .then(data => {
                 setBooks(data);

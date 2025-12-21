@@ -9,7 +9,7 @@ const LateBook = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch("http://localhost:3000/books")
+        fetch("https://boi-ghor-kappa.vercel.app/books")
             .then(res => res.json())
             .then(data => {
                 setBooks(data);

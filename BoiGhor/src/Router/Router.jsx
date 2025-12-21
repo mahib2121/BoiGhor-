@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router";
+import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import HomePage from "../pages/Home/HomePage";
@@ -35,14 +35,14 @@ const router = createBrowserRouter([
                 index: true,
                 element: <HomePage />,
                 loader: () =>
-                    fetch("warehouses.json").then((res) => res.json()),
+                    fetch("/warehouses.json").then((res) => res.json()),
             },
 
             /* PUBLIC PAGES */
             { path: "cart", element: <Cartpage /> },
             { path: "all-books", element: <AllBook /> },
-            { path: "checkout", element: <ChackOut /> },
-            { path: "profile", element: <Profile /> },
+            { path: "checkout", element: <PrivateRoute> <ChackOut /></PrivateRoute> },
+            { path: "profile", element: <PrivateRoute><Profile /></PrivateRoute> },
 
             {
                 path: "books/:id",

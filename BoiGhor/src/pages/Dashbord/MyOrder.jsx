@@ -38,7 +38,7 @@ const MyOrder = () => {
                 try {
                     await axiosSecure.patch(`/orders/${id}/cancel`);
                     Swal.fire("Cancelled!", "Your order has been cancelled.", "success");
-                    fetchOrders(); // Refresh data
+                    fetchOrders();
                 } catch (err) {
                     console.error("Cancel error:", err);
                     Swal.fire("Error!", "Failed to cancel order.", "error");

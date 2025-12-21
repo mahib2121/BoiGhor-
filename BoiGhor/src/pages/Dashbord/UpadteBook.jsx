@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLoaderData } from 'react-router';
+import { useLoaderData } from 'react-router-dom';
 import useAxiosSecure from '../../hook/axiosSecure';
 import Swal from 'sweetalert2';
 

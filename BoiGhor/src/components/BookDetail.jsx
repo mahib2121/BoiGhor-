@@ -16,7 +16,7 @@ const BookDetail = () => {
         window.scrollTo(0, 0); // Ensure page starts at top
         const fetchBookData = async () => {
             try {
-                const response = await axios.get(`http://localhost:3000/books/${id}`);
+                const response = await axios.get(`https://boi-ghor-kappa.vercel.app/books/${id}`);
                 setBook(response.data);
                 setLoading(false);
             } catch (error) {

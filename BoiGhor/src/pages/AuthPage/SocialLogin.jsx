@@ -27,7 +27,7 @@ const SocialLogin = () => {
 
             // 4️⃣ Save / sync user in MongoDB (SECURED)
             await axios.post(
-                "http://localhost:3000/users",
+                "https://boi-ghor-kappa.vercel.app/users",
                 userInfo,
                 {
                     headers: {

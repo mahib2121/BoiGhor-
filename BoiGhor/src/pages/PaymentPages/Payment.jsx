@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router";
-// 1. Import the hook only once
+import { useParams, useNavigate } from "react-router-dom";
 import useAxiosSecure from "../../hook/axiosSecure";
 
 const Payment = () => {
     const { orderId } = useParams();
     const navigate = useNavigate();
-
-    // 2. Initialize the hook to get the axios instance
     const axiosSecure = useAxiosSecure();
 
     const [order, setOrder] = useState(null);
@@ -20,7 +17,6 @@ const Payment = () => {
         const fetchOrder = async () => {
             try {
                 setLoading(true);
-                // 3. Use 'axiosSecure.get', NOT 'useAxiosSecure.get'
                 const res = await axiosSecure.get(`/orders/${orderId}`);
                 setOrder(res.data);
                 setError(false);
@@ -32,7 +28,7 @@ const Payment = () => {
         };
 
         fetchOrder();
-    }, [orderId, axiosSecure]); // Added axiosSecure to dependencies
+    }, [orderId, axiosSecure]);
 
     if (loading) {
         return <div className="text-center mt-20">Loading...</div>;
@@ -55,13 +51,11 @@ const Payment = () => {
                 email: order.email,
             };
 
-            // 4. Use 'axiosSecure.post', NOT 'useAxiosSecure.post'
+
             const res = await axiosSecure.post(
                 '/payment-checkout-session',
                 PayInfo
             );
-
-            // Redirect to Stripe Checkout
             window.location.href = res.data.url;
         } catch (err) {
             console.error('Payment error', err);
@@ -114,7 +108,7 @@ const Payment = () => {
 
             <button
                 className="btn btn-outline w-full mt-3"
-                onClick={() => navigate("/dashboard/my-orders")} // Fixed path slightly
+                onClick={() => navigate("/dashboard/my-orders")}
             >
                 Back to Orders
             </button>
